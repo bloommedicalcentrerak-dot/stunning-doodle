@@ -1,0 +1,30 @@
+name: Pylint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        mapfile -d '' -t non_models < <(git ls-files -z '*.py' ':!:models/**' ':!:*/models/**')
+        mapfile -d '' -t models < <(git ls-files -z 'models/*.py' ':(glob)models/**/*.py' '*/models/*.py' ':(glob)*/models/**/*.py' | sort -zu)
+        if [ "${#non_models[@]}" -gt 0 ]; then
+          pylint --disable=C0103,C0114,C0115,C0116,C0301,R0903,W0104 "${non_models[@]}"
+        fi
+        if [ "${#models[@]}" -gt 0 ]; then
+          pylint --disable=C0103,C0114,C0115,C0116,C0301,E0401,R0801,R0903,W0104 "${models[@]}"
+        fi

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_patient_tree" model="ir.ui.view">
+        <field name="name">bloom.patient.tree</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="emirates_id"/>
+                <field name="appointment_count"/>
+                <field name="laser_count"/>
+                <field name="slimming_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_form" model="ir.ui.view">
+        <field name="name">bloom.patient.form</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="emirates_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Summary">
+                            <field name="appointment_count" readonly="1"/>
+                            <field name="laser_count" readonly="1"/>
+                            <field name="slimming_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointment_ids" context="{'default_patient_id': id}">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="service_type"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Laser Sessions">
+                            <field name="laser_ids" context="{'default_patient_id': id}">
+                                <tree>
+                                    <field name="session_date"/>
+                                    <field name="area"/>
+                                    <field name="machine"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Slimming Sessions">
+                            <field name="slimming_ids" context="{'default_patient_id': id}">
+                                <tree>
+                                    <field name="session_date"/>
+                                    <field name="program"/>
+                                    <field name="weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_search" model="ir.ui.view">
+        <field name="name">bloom.patient.search</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="emirates_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Active" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">bloom.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_patient_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first patient</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bloom_root" name="Bloom OS" sequence="10"/>
+    <menuitem id="menu_bloom_patient" name="Patients" parent="menu_bloom_root" action="action_bloom_patient" sequence="10"/>
+</odoo>

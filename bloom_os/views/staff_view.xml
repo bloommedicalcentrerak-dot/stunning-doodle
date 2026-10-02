@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_staff_tree" model="ir.ui.view">
+        <field name="name">bloom.staff.tree</field>
+        <field name="model">bloom.staff</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="role"/>
+                <field name="specialty"/>
+                <field name="appointment_count"/>
+                <field name="laser_count"/>
+                <field name="slimming_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_staff_form" model="ir.ui.view">
+        <field name="name">bloom.staff.form</field>
+        <field name="model">bloom.staff</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="role"/>
+                            <field name="specialty"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Summary">
+                            <field name="appointment_count" readonly="1"/>
+                            <field name="laser_count" readonly="1"/>
+                            <field name="slimming_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointment_ids" context="{'default_staff_id': id}">
+                                <tree>
+                                    <field name="patient_id"/>
+                                    <field name="date"/>
+                                    <field name="service_type"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Laser Sessions">
+                            <field name="laser_ids" context="{'default_staff_id': id}">
+                                <tree>
+                                    <field name="patient_id"/>
+                                    <field name="session_date"/>
+                                    <field name="area"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Slimming Sessions">
+                            <field name="slimming_ids" context="{'default_staff_id': id}">
+                                <tree>
+                                    <field name="patient_id"/>
+                                    <field name="session_date"/>
+                                    <field name="program"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_staff_search" model="ir.ui.view">
+        <field name="name">bloom.staff.search</field>
+        <field name="model">bloom.staff</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="role"/>
+                <field name="specialty"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Role" name="group_role" context="{'group_by': 'role'}"/>
+                    <filter string="Active" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_staff" model="ir.actions.act_window">
+        <field name="name">Team</field>
+        <field name="res_model">bloom.staff</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_staff_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add clinic team members and assign them to records</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bloom_staff" name="Team" parent="menu_bloom_root" action="action_bloom_staff" sequence="15"/>
+</odoo>
