@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_purchase_tree" model="ir.ui.view">
+        <field name="name">bloom.purchase.tree</field>
+        <field name="model">bloom.purchase</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="is_overdue" decoration-warning="state == 'partial' or is_low_stock">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="supplier"/>
+                <field name="quantity_ordered"/>
+                <field name="quantity_received"/>
+                <field name="remaining_quantity"/>
+                <field name="order_date"/>
+                <field name="expected_delivery_date"/>
+                <field name="state"/>
+                <field name="alert_message"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_purchase_form" model="ir.ui.view">
+        <field name="name">bloom.purchase.form</field>
+        <field name="model">bloom.purchase</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_set_ordered" type="object" string="Order" class="oe_highlight"/>
+                    <button name="action_set_partial" type="object" string="Mark Partial"/>
+                    <button name="action_set_received" type="object" string="Mark Received"/>
+                    <button name="action_set_cancelled" type="object" string="Cancel"/>
+                    <button name="action_set_draft" type="object" string="Reset to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ordered,partial,received,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Purchase Details">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                            <field name="supplier"/>
+                            <field name="notes"/>
+                        </group>
+                        <group string="Dates and Status">
+                            <field name="order_date"/>
+                            <field name="expected_delivery_date"/>
+                            <field name="received_date"/>
+                            <field name="alert_message" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Quantities">
+                            <field name="quantity_ordered"/>
+                            <field name="quantity_received"/>
+                            <field name="remaining_quantity" readonly="1"/>
+                        </group>
+                        <group string="Stock and Cost">
+                            <field name="unit_price"/>
+                            <field name="total_price" readonly="1"/>
+                            <field name="current_stock"/>
+                            <field name="minimum_stock"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents">
+                            <group>
+                                <field name="invoice_file" filename="invoice_filename"/>
+                                <field name="invoice_filename" invisible="1"/>
+                                <field name="quotation_file" filename="quotation_filename"/>
+                                <field name="quotation_filename" invisible="1"/>
+                                <field name="receipt_file" filename="receipt_filename"/>
+                                <field name="receipt_filename" invisible="1"/>
+                                <field name="other_document" filename="other_document_filename"/>
+                                <field name="other_document_filename" invisible="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_purchase_search" model="ir.ui.view">
+        <field name="name">bloom.purchase.search</field>
+        <field name="model">bloom.purchase</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="supplier"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Ordered" name="ordered" domain="[('state', '=', 'ordered')]"/>
+                <filter string="Partial" name="partial" domain="[('state', '=', 'partial')]"/>
+                <filter string="Received" name="received" domain="[('state', '=', 'received')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <filter string="Overdue" name="overdue" domain="[('is_overdue', '=', True)]"/>
+                <filter string="Low Stock" name="low_stock" domain="[('is_low_stock', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Department" name="group_department" context="{'group_by': 'department_id'}"/>
+                    <filter string="Supplier" name="group_supplier" context="{'group_by': 'supplier'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_purchase" model="ir.actions.act_window">
+        <field name="name">Purchases</field>
+        <field name="res_model">bloom.purchase</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_purchase_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first purchase record</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bloom_purchase" name="Purchases" parent="menu_bloom_root" action="action_bloom_purchase" sequence="60"/>
+</odoo>

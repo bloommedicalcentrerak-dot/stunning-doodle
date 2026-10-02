@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_dashboard_form" model="ir.ui.view">
+        <field name="name">bloom.dashboard.form</field>
+        <field name="model">bloom.dashboard</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <group string="Clinic Overview" col="4">
+                        <field name="total_patients" readonly="1"/>
+                        <field name="total_appointments" readonly="1"/>
+                        <field name="total_staff" readonly="1"/>
+                        <field name="total_laser_sessions" readonly="1"/>
+                        <field name="total_slimming_sessions" readonly="1"/>
+                    </group>
+                    <group string="Upcoming Appointments">
+                        <field name="upcoming_appointment_ids" readonly="1">
+                            <tree>
+                                <field name="patient_id"/>
+                                <field name="date"/>
+                                <field name="service_type"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_dashboard_open" model="ir.actions.server">
+        <field name="name">Open Dashboard</field>
+        <field name="model_id" ref="model_bloom_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_dashboard()</field>
+    </record>
+
+    <record id="action_bloom_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">bloom.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_bloom_dashboard" name="Dashboard" parent="menu_bloom_root" action="action_bloom_dashboard_open" sequence="5"/>
+</odoo>
