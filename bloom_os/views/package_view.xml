@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_package_tree" model="ir.ui.view">
+        <field name="name">bloom.package.tree</field>
+        <field name="model">bloom.package</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="service_id"/>
+                <field name="total_sessions"/>
+                <field name="used_sessions"/>
+                <field name="remaining_sessions"/>
+                <field name="price"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_package_form" model="ir.ui.view">
+        <field name="name">bloom.package.form</field>
+        <field name="model">bloom.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start" type="object" string="Start" class="oe_highlight"/>
+                    <button name="action_done" type="object" string="Close"/>
+                    <button name="action_cancel" type="object" string="Cancel"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="service_id"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="total_sessions"/>
+                            <field name="used_sessions"/>
+                            <field name="remaining_sessions"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Laser Sessions">
+                            <field name="laser_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="session_date"/>
+                                    <field name="area"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Slimming Sessions">
+                            <field name="slimming_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="session_date"/>
+                                    <field name="program"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_package_search" model="ir.ui.view">
+        <field name="name">bloom.package.search</field>
+        <field name="model">bloom.package</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="service_id"/>
+                <filter string="Running" name="running" domain="[('state', '=', 'running')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Service" name="group_service" context="{'group_by': 'service_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_package" model="ir.actions.act_window">
+        <field name="name">Treatment Packages</field>
+        <field name="res_model">bloom.package</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_package_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_package" name="Packages" parent="menu_bloom_root" action="action_bloom_package" sequence="50"/>
+</odoo>
