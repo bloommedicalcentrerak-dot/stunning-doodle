@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_payment_tree" model="ir.ui.view">
+        <field name="name">bloom.payment.tree</field>
+        <field name="model">bloom.payment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="patient_id"/>
+                <field name="service_id"/>
+                <field name="payment_method"/>
+                <field name="amount" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_payment_form" model="ir.ui.view">
+        <field name="name">bloom.payment.form</field>
+        <field name="model">bloom.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="date"/>
+                            <field name="payment_method"/>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="service_id"/>
+                            <field name="appointment_id"/>
+                            <field name="package_id"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_payment_search" model="ir.ui.view">
+        <field name="name">bloom.payment.search</field>
+        <field name="model">bloom.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="service_id"/>
+                <filter string="Cash" name="cash" domain="[('payment_method', '=', 'cash')]"/>
+                <filter string="Card" name="card" domain="[('payment_method', '=', 'card')]"/>
+                <filter string="Bank Transfer" name="transfer" domain="[('payment_method', '=', 'transfer')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Payment Method" name="group_method" context="{'group_by': 'payment_method'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_payment" model="ir.actions.act_window">
+        <field name="name">Payments</field>
+        <field name="res_model">bloom.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_payment_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_payment" name="Payments" parent="menu_bloom_root" action="action_bloom_payment" sequence="60"/>
+</odoo>
