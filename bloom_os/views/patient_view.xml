@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_patient_tree" model="ir.ui.view">
+        <field name="name">bloom.patient.tree</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="emirates_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_form" model="ir.ui.view">
+        <field name="name">bloom.patient.form</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="id_scan_raw" autofocus="1" placeholder="Click here, then scan the ID card..."/>
+                            <field name="name"/>
+                            <field name="emirates_id"/>
+                            <field name="gender"/>
+                            <field name="birthdate"/>
+                            <field name="age"/>
+                            <field name="nationality"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="emergency_contact_name"/>
+                            <field name="emergency_contact_phone"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Medical File">
+                            <group>
+                                <field name="medical_history"/>
+                                <field name="allergies"/>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                        <page string="Appointments">
+                            <field name="appointment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="doctor_id"/>
+                                    <field name="service_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Laser Sessions">
+                            <field name="laser_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="session_date"/>
+                                    <field name="area"/>
+                                    <field name="machine"/>
+                                    <field name="price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Slimming Sessions">
+                            <field name="slimming_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="session_date"/>
+                                    <field name="program"/>
+                                    <field name="weight"/>
+                                    <field name="bmi"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Packages">
+                            <field name="package_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="service_id"/>
+                                    <field name="total_sessions"/>
+                                    <field name="used_sessions"/>
+                                    <field name="remaining_sessions"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Payments">
+                            <field name="payment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="payment_method"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_search" model="ir.ui.view">
+        <field name="name">bloom.patient.search</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="emirates_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_gender" context="{'group_by': 'gender'}"/>
+                    <filter string="City" name="group_city" context="{'group_by': 'city'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">bloom.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_patient_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first patient</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bloom_root" name="Bloom OS" sequence="10" groups="bloom_os.group_bloom_user"/>
+    <menuitem id="menu_bloom_patient" name="Patients" parent="menu_bloom_root" action="action_bloom_patient" sequence="10"/>
+    <menuitem id="menu_bloom_config" name="Configuration" parent="menu_bloom_root" sequence="90" groups="bloom_os.group_bloom_manager"/>
+</odoo>

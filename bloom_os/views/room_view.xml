@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_room_tree" model="ir.ui.view">
+        <field name="name">bloom.room.tree</field>
+        <field name="model">bloom.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="room_type"/>
+                <field name="capacity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_room_form" model="ir.ui.view">
+        <field name="name">bloom.room.form</field>
+        <field name="model">bloom.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="room_type"/>
+                        </group>
+                        <group>
+                            <field name="capacity"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_room_search" model="ir.ui.view">
+        <field name="name">bloom.room.search</field>
+        <field name="model">bloom.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="room_type"/>
+                <group expand="0" string="Group By">
+                    <filter string="Room Type" name="group_type" context="{'group_by': 'room_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">bloom.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_room_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_room" name="Rooms" parent="menu_bloom_config" action="action_bloom_room" sequence="20"/>
+</odoo>

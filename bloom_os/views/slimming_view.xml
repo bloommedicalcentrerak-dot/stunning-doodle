@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_slimming_tree" model="ir.ui.view">
+        <field name="name">bloom.slimming.tree</field>
+        <field name="model">bloom.slimming</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="session_date"/>
+                <field name="program"/>
+                <field name="weight"/>
+                <field name="height"/>
+                <field name="bmi"/>
+                <field name="package_id"/>
+                <field name="price"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_slimming_form" model="ir.ui.view">
+        <field name="name">bloom.slimming.form</field>
+        <field name="model">bloom.slimming</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" type="object" string="Mark Done" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancel"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="package_id"/>
+                            <field name="service_id"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="session_date"/>
+                            <field name="program"/>
+                            <field name="doctor_id"/>
+                            <field name="room_id"/>
+                        </group>
+                        <group string="Measurements">
+                            <field name="weight"/>
+                            <field name="height"/>
+                            <field name="bmi" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_slimming_search" model="ir.ui.view">
+        <field name="name">bloom.slimming.search</field>
+        <field name="model">bloom.slimming</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="program"/>
+                <field name="doctor_id"/>
+                <field name="package_id"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Program" name="group_program" context="{'group_by': 'program'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_slimming" model="ir.actions.act_window">
+        <field name="name">Slimming Sessions</field>
+        <field name="res_model">bloom.slimming</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_slimming_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_slimming" name="Slimming" parent="menu_bloom_root" action="action_bloom_slimming" sequence="40"/>
+</odoo>

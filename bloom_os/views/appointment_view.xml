@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_appointment_tree" model="ir.ui.view">
+        <field name="name">bloom.appointment.tree</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="date"/>
+                <field name="doctor_id"/>
+                <field name="room_id"/>
+                <field name="service_id"/>
+                <field name="service_type"/>
+                <field name="price"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_appointment_form" model="ir.ui.view">
+        <field name="name">bloom.appointment.form</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"/>
+                    <button name="action_done" type="object" string="Mark Done"/>
+                    <button name="action_cancel" type="object" string="Cancel"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="doctor_id"/>
+                            <field name="room_id"/>
+                        </group>
+                        <group>
+                            <field name="service_id"/>
+                            <field name="service_type"/>
+                            <field name="date"/>
+                            <field name="duration"/>
+                            <field name="date_end" readonly="1"/>
+                            <field name="price"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_appointment_calendar" model="ir.ui.view">
+        <field name="name">bloom.appointment.calendar</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="date" date_stop="date_end" color="doctor_id" mode="week">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="room_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_bloom_appointment_search" model="ir.ui.view">
+        <field name="name">bloom.appointment.search</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="room_id"/>
+                <field name="service_id"/>
+                <field name="service_type"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Doctor" name="group_doctor" context="{'group_by': 'doctor_id'}"/>
+                    <filter string="Room" name="group_room" context="{'group_by': 'room_id'}"/>
+                    <filter string="Service" name="group_service" context="{'group_by': 'service_type'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">bloom.appointment</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="search_view_id" ref="view_bloom_appointment_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_appointment" name="Appointments" parent="menu_bloom_root" action="action_bloom_appointment" sequence="20"/>
+</odoo>
