@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="bloom_team_doctor" model="bloom.team">
+        <field name="name">Dr. Amani Derma</field>
+        <field name="role">Dermatologist</field>
+        <field name="phone">0500000001</field>
+    </record>
+    <record id="bloom_team_laser_specialist" model="bloom.team">
+        <field name="name">Fatima Laser</field>
+        <field name="role">Laser Specialist</field>
+        <field name="phone">0500000002</field>
+    </record>
+    <record id="bloom_team_reception" model="bloom.team">
+        <field name="name">Raneem Reception</field>
+        <field name="role">Reception</field>
+        <field name="phone">0500000003</field>
+    </record>
+
+    <record id="bloom_device_clarity_laser" model="bloom.device">
+        <field name="name">Clarity Laser</field>
+        <field name="category">Laser</field>
+        <field name="serial_number">CLARITY-001</field>
+        <field name="status">in_use</field>
+        <field name="team_id" ref="bloom_team_laser_specialist"/>
+    </record>
+    <record id="bloom_device_candela_laser" model="bloom.device">
+        <field name="name">Candela Laser</field>
+        <field name="category">Laser</field>
+        <field name="serial_number">CANDELA-001</field>
+        <field name="status">available</field>
+    </record>
+    <record id="bloom_device_bmi_scale" model="bloom.device">
+        <field name="name">Body Scale Analyzer</field>
+        <field name="category">Slimming</field>
+        <field name="serial_number">SLIM-001</field>
+        <field name="status">in_use</field>
+        <field name="team_id" ref="bloom_team_doctor"/>
+    </record>
+</odoo>

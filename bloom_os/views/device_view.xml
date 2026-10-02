@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_device_tree" model="ir.ui.view">
+        <field name="name">bloom.device.tree</field>
+        <field name="model">bloom.device</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="serial_number"/>
+                <field name="status"/>
+                <field name="team_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_device_form" model="ir.ui.view">
+        <field name="name">bloom.device.form</field>
+        <field name="model">bloom.device</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="category"/>
+                        <field name="serial_number"/>
+                        <field name="status"/>
+                        <field name="team_id"/>
+                        <field name="active"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_device_search" model="ir.ui.view">
+        <field name="name">bloom.device.search</field>
+        <field name="model">bloom.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="team_id"/>
+                <field name="status"/>
+                <group expand="0" string="Group By">
+                    <filter string="Team" name="group_team" context="{'group_by': 'team_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_device" model="ir.actions.act_window">
+        <field name="name">Devices</field>
+        <field name="res_model">bloom.device</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_device_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_device" name="Devices" parent="menu_bloom_root" action="action_bloom_device" sequence="60"/>
+</odoo>
