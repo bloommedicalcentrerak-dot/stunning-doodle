@@ -1,0 +1,33 @@
+name: Pylint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        git ls-files -z '__init__.py' 'models/__init__.py' ':(glob)models/**/__init__.py' '*/__init__.py' '*/models/__init__.py' ':(glob)*/models/**/__init__.py' \
+          | xargs -0r pylint --disable=missing-module-docstring,invalid-name
+
+        git ls-files -z '__manifest__.py' '*/__manifest__.py' \
+          | xargs -0r pylint --disable=missing-module-docstring,pointless-statement
+
+        git ls-files -z '*.py' ':(exclude)__init__.py' ':(exclude)__manifest__.py' ':(exclude)models/*.py' ':(exclude,glob)models/**/*.py' ':(exclude)*/__init__.py' ':(exclude)*/__manifest__.py' ':(exclude)*/models/*.py' ':(exclude,glob)*/models/**/*.py' \
+          | xargs -0r pylint --disable=missing-module-docstring,invalid-name,missing-class-docstring,too-few-public-methods,import-error
+
+        git ls-files -z 'models/*.py' ':(glob)models/**/*.py' '*/models/*.py' ':(glob)*/models/**/*.py' ':(exclude)__manifest__.py' ':(exclude)*/__manifest__.py' ':(exclude)models/__init__.py' ':(exclude,glob)models/**/__init__.py' ':(exclude)*/models/__init__.py' ':(exclude,glob)*/models/**/__init__.py' \
+          | xargs -0r pylint --disable=missing-module-docstring,missing-class-docstring,too-few-public-methods,import-error

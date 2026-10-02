@@ -1,0 +1,39 @@
+<odoo>
+    <record id="view_bloom_patient_tree" model="ir.ui.view">
+        <field name="name">bloom.patient.tree</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="emirates_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_form" model="ir.ui.view">
+        <field name="name">bloom.patient.form</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="emirates_id"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">bloom.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_root" name="Bloom OS"/>
+    <menuitem id="menu_bloom_patient" name="Patients" parent="menu_bloom_root" action="action_bloom_patient"/>
+</odoo>

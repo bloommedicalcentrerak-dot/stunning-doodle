@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_bloom_appointment_tree" model="ir.ui.view">
+        <field name="name">bloom.appointment.tree</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_id"/>
+                <field name="date"/>
+                <field name="service_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_appointment_form" model="ir.ui.view">
+        <field name="name">bloom.appointment.form</field>
+        <field name="model">bloom.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="date"/>
+                        <field name="service_type"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">bloom.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_appointment" name="Appointments" parent="menu_bloom_root" action="action_bloom_appointment"/>
+</odoo>

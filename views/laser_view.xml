@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_bloom_laser_tree" model="ir.ui.view">
+        <field name="name">bloom.laser.tree</field>
+        <field name="model">bloom.laser</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_id"/>
+                <field name="session_date"/>
+                <field name="area"/>
+                <field name="machine"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_laser_form" model="ir.ui.view">
+        <field name="name">bloom.laser.form</field>
+        <field name="model">bloom.laser</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="session_date"/>
+                        <field name="area"/>
+                        <field name="machine"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_laser" model="ir.actions.act_window">
+        <field name="name">Laser Sessions</field>
+        <field name="res_model">bloom.laser</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_laser" name="Laser" parent="menu_bloom_root" action="action_bloom_laser"/>
+</odoo>
