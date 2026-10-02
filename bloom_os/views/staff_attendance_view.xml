@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_staff_attendance_tree" model="ir.ui.view">
+        <field name="name">bloom.staff_attendance.tree</field>
+        <field name="model">bloom.staff_attendance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="staff_id"/>
+                <field name="date"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="status"/>
+                <field name="overtime_hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_staff_attendance_form" model="ir.ui.view">
+        <field name="name">bloom.staff_attendance.form</field>
+        <field name="model">bloom.staff_attendance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="staff_id"/>
+                        <field name="date"/>
+                        <field name="status"/>
+                        <field name="check_in"/>
+                        <field name="check_out"/>
+                        <field name="overtime_hours"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_staff_attendance_search" model="ir.ui.view">
+        <field name="name">bloom.staff_attendance.search</field>
+        <field name="model">bloom.staff_attendance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="staff_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Staff" name="group_staff" context="{'group_by': 'staff_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_staff_attendance" model="ir.actions.act_window">
+        <field name="name">Staff Attendance</field>
+        <field name="res_model">bloom.staff_attendance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_staff_attendance_search"/>
+    </record>
+
+    <menuitem id="menu_bloom_staff_attendance" name="Staff Attendance" parent="menu_bloom_root" action="action_bloom_staff_attendance" sequence="36"/>
+</odoo>

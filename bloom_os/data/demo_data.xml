@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_department_general" model="bloom.department">
+        <field name="name">General Medicine</field>
+        <field name="code">GEN</field>
+    </record>
+
+    <record id="demo_room_1" model="bloom.room">
+        <field name="name">Room 1</field>
+        <field name="department_id" ref="demo_department_general"/>
+    </record>
+
+    <record id="demo_doctor_1" model="bloom.doctor">
+        <field name="name">Dr. Sarah Ahmed</field>
+        <field name="specialty">General Practitioner</field>
+        <field name="department_id" ref="demo_department_general"/>
+        <field name="phone">+971 50 000 0000</field>
+    </record>
+
+    <record id="demo_patient_1" model="bloom.patient">
+        <field name="name">First Client</field>
+        <field name="phone">+971 55 111 1111</field>
+        <field name="notes">Sample patient, ready to book with a doctor.</field>
+    </record>
+
+    <record id="demo_appointment_1" model="bloom.appointment">
+        <field name="patient_id" ref="demo_patient_1"/>
+        <field name="doctor_id" ref="demo_doctor_1"/>
+        <field name="room_id" ref="demo_room_1"/>
+        <field name="date" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:00:00')"/>
+        <field name="service_type">consultation</field>
+        <field name="state">draft</field>
+        <field name="notes">First client booking, ready to confirm.</field>
+    </record>
+</odoo>
