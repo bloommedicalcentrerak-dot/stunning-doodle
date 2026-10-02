@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_bloom_slimming_tree" model="ir.ui.view">
+        <field name="name">bloom.slimming.tree</field>
+        <field name="model">bloom.slimming</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_id"/>
+                <field name="session_date"/>
+                <field name="program"/>
+                <field name="weight"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_slimming_form" model="ir.ui.view">
+        <field name="name">bloom.slimming.form</field>
+        <field name="model">bloom.slimming</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="session_date"/>
+                        <field name="program"/>
+                        <field name="weight"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_slimming" model="ir.actions.act_window">
+        <field name="name">Slimming Sessions</field>
+        <field name="res_model">bloom.slimming</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_slimming" name="Slimming" parent="menu_bloom_root" action="action_bloom_slimming"/>
+</odoo>
