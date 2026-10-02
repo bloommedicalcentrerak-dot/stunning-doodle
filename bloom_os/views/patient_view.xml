@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_patient_tree" model="ir.ui.view">
+        <field name="name">bloom.patient.tree</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="emirates_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_form" model="ir.ui.view">
+        <field name="name">bloom.patient.form</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="emirates_id"/>
+                        <field name="active"/>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointment_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="service_type"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Laser Sessions">
+                            <field name="laser_ids">
+                                <tree>
+                                    <field name="session_date"/>
+                                    <field name="area"/>
+                                    <field name="machine"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Slimming Sessions">
+                            <field name="slimming_ids">
+                                <tree>
+                                    <field name="session_date"/>
+                                    <field name="program"/>
+                                    <field name="weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Tips &amp; Chronicle">
+                            <button name="action_view_chronicle" type="object" class="btn-primary"
+                                    string="View My Tips &amp; Analysis"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bloom_patient_search" model="ir.ui.view">
+        <field name="name">bloom.patient.search</field>
+        <field name="model">bloom.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="emirates_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bloom_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">bloom.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_bloom_patient_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first patient</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bloom_root" name="Bloom OS" sequence="10"/>
+    <menuitem id="menu_bloom_patient" name="Patients" parent="menu_bloom_root" action="action_bloom_patient" sequence="10"/>
+</odoo>

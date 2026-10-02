@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Bloom Tip Views -->
+    <record id="view_bloom_tip_tree" model="ir.ui.view">
+        <field name="name">bloom.tip.tree</field>
+        <field name="model">bloom.tip</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="category"/>
+                <field name="priority"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_tip_form" model="ir.ui.view">
+        <field name="name">bloom.tip.form</field>
+        <field name="model">bloom.tip</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="title"/>
+                        <field name="category"/>
+                        <field name="priority"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_tip" model="ir.actions.act_window">
+        <field name="name">Tips</field>
+        <field name="res_model">bloom.tip</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first tip</p>
+        </field>
+    </record>
+
+    <!-- Bloom Chronicle Views -->
+    <record id="view_bloom_chronicle_tree" model="ir.ui.view">
+        <field name="name">bloom.chronicle.tree</field>
+        <field name="model">bloom.chronicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_id"/>
+                <field name="total_laser_sessions"/>
+                <field name="total_slimming_sessions"/>
+                <field name="consistency_score"/>
+                <field name="last_analysis_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_chronicle_form" model="ir.ui.view">
+        <field name="name">bloom.chronicle.form</field>
+        <field name="model">bloom.chronicle</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Patient Information">
+                        <field name="patient_id" readonly="1"/>
+                        <field name="last_analysis_date" readonly="1"/>
+                    </group>
+                    <group string="Session Statistics">
+                        <field name="total_laser_sessions" readonly="1"/>
+                        <field name="total_slimming_sessions" readonly="1"/>
+                        <field name="last_session_date" readonly="1"/>
+                        <field name="average_days_between_sessions" readonly="1"/>
+                    </group>
+                    <group string="Progress Metrics">
+                        <field name="weight_change" readonly="1"/>
+                        <field name="consistency_score" readonly="1" widget="gauge"/>
+                    </group>
+                    <group string="Recommended Tips">
+                        <field name="recommended_tip_ids" readonly="1" nolabel="1">
+                            <tree>
+                                <field name="title"/>
+                                <field name="category"/>
+                                <field name="priority"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Generated Tips Text">
+                        <field name="tips_text" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_chronicle" model="ir.actions.act_window">
+        <field name="name">Session Chronicle &amp; Tips</field>
+        <field name="res_model">bloom.chronicle</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Run analysis to view patient tips</p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_bloom_chronicle" name="Chronicle &amp; Tips" parent="menu_bloom_root" action="action_bloom_chronicle" sequence="30"/>
+    <menuitem id="menu_bloom_tips" name="Tip Templates" parent="menu_bloom_root" action="action_bloom_tip" sequence="40"/>
+</odoo>
+

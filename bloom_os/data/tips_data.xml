@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default Tips for the Chronicle System -->
+    <data noupdate="1">
+        <!-- Frequency Tips -->
+        <record id="tip_increase_frequency" model="bloom.tip">
+            <field name="title">Increase Session Frequency</field>
+            <field name="description">Your sessions are spaced more than 30 days apart. Consider scheduling more frequent sessions to achieve better results. Regular, consistent treatments are key to success.</field>
+            <field name="category">frequency</field>
+            <field name="priority">high</field>
+        </record>
+
+        <record id="tip_maintain_frequency" model="bloom.tip">
+            <field name="title">Maintain Your Schedule</field>
+            <field name="description">Great job maintaining a consistent schedule! Keep up with your regular sessions to see continued progress.</field>
+            <field name="category">frequency</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <!-- Consistency Tips -->
+        <record id="tip_improve_consistency" model="bloom.tip">
+            <field name="title">Improve Consistency</field>
+            <field name="description">Your session schedule has been inconsistent. Try to maintain more regular intervals between sessions for better treatment effectiveness. Consider scheduling appointments at the same time each week or month.</field>
+            <field name="category">consistency</field>
+            <field name="priority">high</field>
+        </record>
+
+        <record id="tip_perfect_consistency" model="bloom.tip">
+            <field name="title">Perfect Consistency!</field>
+            <field name="description">Excellent! Your sessions are very consistent. This consistency is crucial for achieving your treatment goals.</field>
+            <field name="category">consistency</field>
+            <field name="priority">low</field>
+        </record>
+
+        <!-- Progress Tips -->
+        <record id="tip_track_progress" model="bloom.tip">
+            <field name="title">You're Making Progress!</field>
+            <field name="description">Keep track of your progress by noting weight changes and treatment results after each session. This data helps us recommend better treatment plans.</field>
+            <field name="category">progress</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <record id="tip_celebrate_progress" model="bloom.tip">
+            <field name="title">Celebrate Your Progress</field>
+            <field name="description">You've shown noticeable progress in your slimming journey! Keep maintaining your treatment schedule to continue seeing results.</field>
+            <field name="category">progress</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <!-- Variety Tips -->
+        <record id="tip_try_different_treatments" model="bloom.tip">
+            <field name="title">Explore Different Treatments</field>
+            <field name="description">Consider trying different treatment areas or programs. Combining various treatments can provide more comprehensive results and address different concerns.</field>
+            <field name="category">variety</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <record id="tip_diversify_treatment" model="bloom.tip">
+            <field name="title">Diversify Your Treatment Plan</field>
+            <field name="description">You're already exploring multiple treatment options! Combining laser and slimming treatments can provide synergistic benefits.</field>
+            <field name="category">variety</field>
+            <field name="priority">low</field>
+        </record>
+
+        <!-- Maintenance Tips -->
+        <record id="tip_schedule_maintenance" model="bloom.tip">
+            <field name="title">Schedule Maintenance Sessions</field>
+            <field name="description">It's been a while since your last session. Consider booking a maintenance appointment to maintain your results and continue your treatment plan.</field>
+            <field name="category">maintenance</field>
+            <field name="priority">high</field>
+        </record>
+
+        <record id="tip_regular_maintenance" model="bloom.tip">
+            <field name="title">Keep Up With Maintenance</field>
+            <field name="description">Regular maintenance sessions help sustain your results long-term. Book your next appointment to maintain your progress.</field>
+            <field name="category">maintenance</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <!-- Goals Tips -->
+        <record id="tip_set_goals" model="bloom.tip">
+            <field name="title">Set Clear Treatment Goals</field>
+            <field name="description">Having specific, measurable goals helps guide your treatment plan. Discuss your objectives with your clinic to create a personalized roadmap.</field>
+            <field name="category">goals</field>
+            <field name="priority">medium</field>
+        </record>
+
+        <record id="tip_review_goals" model="bloom.tip">
+            <field name="title">Review Your Progress Against Goals</field>
+            <field name="description">Periodically review your original goals and compare them with your current progress. This helps you stay motivated and adjust your plan if needed.</field>
+            <field name="category">goals</field>
+            <field name="priority">medium</field>
+        </record>
+    </data>
+</odoo>
