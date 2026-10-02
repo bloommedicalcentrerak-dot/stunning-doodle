@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bloom_patient,bloom.patient,model_bloom_patient,base.group_user,1,1,1,1
+access_bloom_appointment,bloom.appointment,model_bloom_appointment,base.group_user,1,1,1,1
+access_bloom_laser,bloom.laser,model_bloom_laser,base.group_user,1,1,1,1
+access_bloom_slimming,bloom.slimming,model_bloom_slimming,base.group_user,1,1,1,1
+access_bloom_dashboard,bloom.dashboard,model_bloom_dashboard,base.group_user,1,1,1,1
