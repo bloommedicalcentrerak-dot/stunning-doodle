@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="module_category_bloom_os" model="ir.module.category">
+            <field name="name">Bloom OS</field>
+            <field name="description">Access rights for the Bloom Medical Center clinic app.</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_bloom_user" model="res.groups">
+            <field name="name">Clinic User</field>
+            <field name="category_id" ref="module_category_bloom_os"/>
+            <field name="comment">Day to day clinic operations: patients, appointments, sessions and payments.</field>
+        </record>
+
+        <record id="group_bloom_manager" model="res.groups">
+            <field name="name">Clinic Manager</field>
+            <field name="category_id" ref="module_category_bloom_os"/>
+            <field name="implied_ids" eval="[(4, ref('group_bloom_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">Full clinic configuration: staff, rooms, services and deletion rights.</field>
+        </record>
+    </data>
+</odoo>

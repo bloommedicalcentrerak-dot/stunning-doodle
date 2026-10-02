@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_dashboard_form" model="ir.ui.view">
+        <field name="name">bloom.dashboard.form</field>
+        <field name="model">bloom.dashboard</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <group string="Clinic Overview">
+                        <group string="Clinical">
+                            <field name="total_patients" readonly="1"/>
+                            <field name="total_appointments" readonly="1"/>
+                            <field name="today_appointments" readonly="1"/>
+                        </group>
+                        <group string="Treatments">
+                            <field name="total_laser_sessions" readonly="1"/>
+                            <field name="total_slimming_sessions" readonly="1"/>
+                            <field name="total_packages" readonly="1"/>
+                        </group>
+                        <group string="Billing">
+                            <field name="total_payments" readonly="1"/>
+                            <field name="total_payment_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">bloom.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_bloom_dashboard" name="Dashboard" parent="menu_bloom_root" action="action_bloom_dashboard" sequence="5"/>
+</odoo>
