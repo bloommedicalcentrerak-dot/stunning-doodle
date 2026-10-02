@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_room_tree" model="ir.ui.view">
+        <field name="name">bloom.room.tree</field>
+        <field name="model">bloom.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_room_form" model="ir.ui.view">
+        <field name="name">bloom.room.form</field>
+        <field name="model">bloom.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_id"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">bloom.room</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_room" name="Rooms" parent="menu_bloom_root" action="action_bloom_room" sequence="40"/>
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bloom_doctor_tree" model="ir.ui.view">
+        <field name="name">bloom.doctor.tree</field>
+        <field name="model">bloom.doctor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="role"/>
+                <field name="specialty"/>
+                <field name="department_id"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bloom_doctor_form" model="ir.ui.view">
+        <field name="name">bloom.doctor.form</field>
+        <field name="model">bloom.doctor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="role"/>
+                        <field name="specialty"/>
+                        <field name="department_id"/>
+                        <field name="phone"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Evaluations">
+                            <field name="evaluation_ids">
+                                <tree>
+                                    <field name="evaluation_date"/>
+                                    <field name="teamwork"/>
+                                    <field name="cross_selling"/>
+                                    <field name="referral"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Attendance">
+                            <field name="attendance_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                    <field name="status"/>
+                                    <field name="overtime_hours"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bloom_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">bloom.doctor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_bloom_doctor" name="Doctors" parent="menu_bloom_root" action="action_bloom_doctor" sequence="30"/>
+</odoo>
